@@ -1,0 +1,12 @@
+{
+  "device_id": "disk5",
+  "media_name": "USB DISK",
+  "mount_point": "/Volumes/BIGUSB",
+  "filesystem": "ExFAT",
+  "partition_table": "Master Boot Record",
+  "partition_count": 1,
+  "total_size_bytes": 128000000000,
+  "writable": true,
+  "bus_protocol": "USB",
+  "volume_name": "BIGUSB"
+}

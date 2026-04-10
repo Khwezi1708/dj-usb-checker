@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Local runtime and logs
+launchagent.out.log
+launchagent.err.log
+*.log
+
+# Local LaunchAgent helper copies
+usb_checker_watch_notify.sh
+usb-checker-runtime/

@@ -1,0 +1,12 @@
+{
+  "device_id": "disk6",
+  "media_name": "USB DISK",
+  "mount_point": "/Volumes/DJSET",
+  "filesystem": "MS-DOS FAT32",
+  "partition_table": "Master Boot Record",
+  "partition_count": 2,
+  "total_size_bytes": 64000000000,
+  "writable": true,
+  "bus_protocol": "USB",
+  "volume_name": "DJSET"
+}

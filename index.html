@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pioneer USB Checker | DJ USB Compatibility for macOS</title>
+    <meta
+      name="description"
+      content="Pioneer USB Checker validates FAT32/MBR/single-partition compatibility for DJ USB drives, with quick health checks and insert notifications."
+    />
+    <style>
+      :root {
+        --bg: #0b1220;
+        --bg-soft: #0f172a;
+        --card: #111b31;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #38bdf8;
+        --primary-strong: #0ea5e9;
+        --ok: #22c55e;
+        --warn: #f59e0b;
+        --fail: #ef4444;
+        --border: #1f2a44;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #12203f, var(--bg));
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .container {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background: rgba(11, 18, 32, 0.75);
+        z-index: 10;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+      }
+
+      .nav a {
+        color: var(--muted);
+        text-decoration: none;
+        margin-left: 1rem;
+        font-size: 0.92rem;
+      }
+
+      .nav a:hover {
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 4.4rem 0 3.4rem;
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 1.25rem;
+      }
+
+      h1 {
+        margin: 0 0 0.7rem;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        line-height: 1.1;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        max-width: 56ch;
+      }
+
+      .cta {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 1.3rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 1px solid var(--primary-strong);
+        color: #dff6ff;
+        background: linear-gradient(180deg, #1a95c4, #0a5f82);
+        border-radius: 10px;
+        padding: 0.62rem 0.95rem;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.94rem;
+      }
+
+      .btn.secondary {
+        background: transparent;
+        border-color: #334155;
+        color: #d1d5db;
+      }
+
+      .panel {
+        background: rgba(10, 17, 31, 0.95);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1rem;
+      }
+
+      .status-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.7rem;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.92rem;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .dot.ok { background: var(--ok); }
+      .dot.warn { background: var(--warn); }
+      .dot.fail { background: var(--fail); }
+
+      section {
+        padding: 1.2rem 0 2rem;
+      }
+
+      h2 {
+        margin: 0 0 1rem;
+        font-size: 1.45rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.9rem;
+      }
+
+      .card {
+        background: linear-gradient(180deg, #111a2f, #0d1527);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.95rem;
+      }
+
+      .card h3 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .how {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.9rem;
+      }
+
+      .step-num {
+        font-size: 0.78rem;
+        color: #7dd3fc;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+      }
+
+      pre {
+        margin: 0;
+        background: #090f1c;
+        border: 1px solid #22304d;
+        border-radius: 10px;
+        padding: 0.9rem;
+        color: #d1e8ff;
+        overflow-x: auto;
+      }
+
+      .footer {
+        padding: 2.4rem 0 3rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(148, 163, 184, 0.16);
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 950px) {
+        .hero { grid-template-columns: 1fr; }
+        .grid-3 { grid-template-columns: 1fr; }
+        .how { grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 640px) {
+        .how { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">Pioneer USB Checker</div>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#install">Install</a>
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <h1>DJ USB confidence before every set.</h1>
+          <p class="lead">
+            Pioneer USB Checker validates FAT32/MBR compatibility, flags risky drives,
+            and can watch USB insert events in the background. Built for fast pre-gig checks on macOS.
+          </p>
+          <div class="cta">
+            <a class="btn" href="https://github.com/" target="_blank" rel="noreferrer">View on GitHub</a>
+            <a class="btn secondary" href="#install">Quick Start</a>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top:0;">Status Model</h3>
+          <ul class="status-list">
+            <li class="status"><span class="dot ok"></span><strong>PASS</strong> - healthy and correctly formatted.</li>
+            <li class="status"><span class="dot warn"></span><strong>WARN</strong> - usable with caveats.</li>
+            <li class="status"><span class="dot fail"></span><strong>FAIL</strong> - not Pioneer-safe.</li>
+          </ul>
+          <p style="margin:0.9rem 0 0; color:var(--muted); font-size:0.9rem;">
+            Strict profile checks FAT32 + MBR + single partition.
+          </p>
+        </div>
+      </section>
+
+      <section id="features">
+        <h2>Why DJs use it</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Strict Compatibility Rules</h3>
+            <p>
+              Enforces Pioneer-safe filesystem and partition rules so you catch format issues before showtime.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Fast Health Signal</h3>
+            <p>
+              Checks mount/accessibility and optional write-read probe for practical readiness.
+            </p>
+          </article>
+          <article class="card">
+            <h3>USB Insert Automation</h3>
+            <p>
+              Watch mode + LaunchAgent setup allows background auto-checks and notifications.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <h2>How it works</h2>
+        <div class="how">
+          <article class="card">
+            <div class="step-num">STEP 1</div>
+            <h3>Detect</h3>
+            <p>Reads external disks via macOS `diskutil`.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">STEP 2</div>
+            <h3>Normalize</h3>
+            <p>Builds a stable device model from disk + partition metadata.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">STEP 3</div>
+            <h3>Evaluate</h3>
+            <p>Applies hard rules and warning checks against your USB.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">STEP 4</div>
+            <h3>Report</h3>
+            <p>Returns clear PASS/WARN/FAIL output in CLI/UI/notifications.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install">
+        <h2>Quick install</h2>
+        <pre><code>git clone https://github.com/&lt;your-username&gt;/usb-checker.git
+cd usb-checker
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+
+usb-checker scan
+usb-checker check disk6
+usb-checker watch --poll-interval-sec 2 --debounce-sec 1.5</code></pre>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <div>Built for DJs who want reliable USB prep. Open source under MIT.</div>
+    </footer>
+  </body>
+</html>

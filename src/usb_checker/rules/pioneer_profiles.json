@@ -1,0 +1,13 @@
+{
+  "profile": "pioneer_unknown_deck_strict",
+  "hard_requirements": {
+    "filesystem": ["MS-DOS FAT32", "FAT32"],
+    "partition_table": ["Master Boot Record", "FDisk_partition_scheme"],
+    "partition_count": 1
+  },
+  "warnings": {
+    "max_recommended_size_bytes": 137438953472,
+    "ascii_volume_label_only": true,
+    "max_volume_label_length": 16
+  }
+}
