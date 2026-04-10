@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Music Background Mockups</title>
+    <style>
+      :root {
+        --bg: #ebd6db;
+        --bg-soft: #f4e6ea;
+        --card: #f9f1f3;
+        --text: #2b2426;
+        --muted: #6f5b60;
+        --border: #e4c4cc;
+        --primary: #4a7855;
+        --primary-strong: #396043;
+        --ok: #2f8e65;
+        --warn: #b17725;
+        --fail: #ba4556;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top, var(--bg-soft), var(--bg));
+      }
+
+      .container {
+        width: min(1200px, 94vw);
+        margin: 0 auto;
+        padding: 1.25rem 0 2rem;
+      }
+
+      h1 {
+        margin: 0 0 0.35rem;
+        font-size: clamp(1.7rem, 3vw, 2.2rem);
+      }
+
+      .lead {
+        margin: 0 0 1.1rem;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .mockup-wrap {
+        background: #fff9fb;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .mockup-title {
+        padding: 0.75rem 0.95rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+      }
+
+      .mockup-title h2 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .mockup-title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .mockup {
+        position: relative;
+        min-height: 320px;
+        padding: 1rem;
+        overflow: hidden;
+        background: linear-gradient(180deg, #fbf5f7, #f4e8ec);
+      }
+
+      .ui-shell {
+        position: relative;
+        z-index: 3;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255, 250, 252, 0.92);
+        backdrop-filter: blur(2px);
+        overflow: hidden;
+      }
+
+      .ui-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.7rem 0.85rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.88rem;
+      }
+
+      .ui-nav .links {
+        color: var(--muted);
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .ui-main {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 0.8rem;
+        padding: 0.9rem;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.78rem;
+        background: var(--card);
+      }
+
+      .card h3 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 0.55rem;
+        margin-top: 0.8rem;
+      }
+
+      .btn {
+        border: 1px solid var(--primary-strong);
+        background: linear-gradient(180deg, var(--primary), var(--primary-strong));
+        color: #eef6ef;
+        border-radius: 9px;
+        font-size: 0.83rem;
+        font-weight: 600;
+        padding: 0.42rem 0.62rem;
+      }
+
+      .btn.secondary {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text);
+      }
+
+      .chip-row {
+        margin-top: 0.7rem;
+        display: flex;
+        gap: 0.45rem;
+      }
+
+      .chip {
+        font-size: 0.72rem;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 0.2rem 0.45rem;
+        color: #fff;
+      }
+
+      .chip.ok { background: var(--ok); }
+      .chip.warn { background: var(--warn); }
+      .chip.fail { background: var(--fail); }
+
+      .ambient-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .ambient-top {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .ambient-note {
+        position: absolute;
+        color: rgba(74, 120, 85, 0.16);
+        font-size: 1.25rem;
+      }
+
+      .note-1 { top: 22%; left: 76%; }
+      .note-2 { top: 40%; left: 82%; }
+      .note-3 { top: 64%; left: 73%; }
+
+      .eq-bars {
+        position: absolute;
+        right: 2rem;
+        top: 5.4rem;
+        display: flex;
+        gap: 0.26rem;
+        z-index: 2;
+      }
+
+      .eq-bars span {
+        width: 6px;
+        border-radius: 999px;
+        background: rgba(74, 120, 85, 0.22);
+      }
+
+      .eq-bars span:nth-child(1) { height: 20px; margin-top: 22px; }
+      .eq-bars span:nth-child(2) { height: 32px; margin-top: 10px; }
+      .eq-bars span:nth-child(3) { height: 42px; margin-top: 0; }
+      .eq-bars span:nth-child(4) { height: 30px; margin-top: 12px; }
+      .eq-bars span:nth-child(5) { height: 24px; margin-top: 18px; }
+
+      .label {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      @media (max-width: 860px) {
+        .ui-main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Music Background Mockups</h1>
+      <p class="lead">Three real design directions using your current palette and DJ visual motifs.</p>
+
+      <div class="grid">
+        <section class="mockup-wrap">
+          <div class="mockup-title">
+            <h2>1) Minimal Ambient</h2>
+            <p>Subtle headphone line art + waveform + faint vinyl rings</p>
+          </div>
+          <div class="mockup">
+            <svg class="ambient-svg" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true">
+              <circle cx="80" cy="30" r="120" fill="none" stroke="rgba(74,120,85,0.14)" stroke-width="2"/>
+              <circle cx="1150" cy="315" r="170" fill="none" stroke="rgba(74,120,85,0.10)" stroke-width="2"/>
+              <path d="M10,180 C70,130 120,230 180,180 C240,130 290,230 350,180 C410,130 460,230 520,180 C580,130 630,230 690,180 C750,130 800,230 860,180 C920,130 970,230 1030,180 C1090,130 1140,230 1190,180"
+                    fill="none" stroke="rgba(74,120,85,0.18)" stroke-width="2"/>
+            </svg>
+            <div class="ambient-top">
+              <svg width="220" height="120" style="position:absolute; right:35px; top:44px; opacity:0.2;" aria-hidden="true">
+                <path d="M15 70a42 42 0 0 1 84 0" fill="none" stroke="#4a7855" stroke-width="3"/>
+                <rect x="8" y="70" width="16" height="30" rx="7" fill="#4a7855"/>
+                <rect x="90" y="70" width="16" height="30" rx="7" fill="#4a7855"/>
+              </svg>
+            </div>
+            <div class="ui-shell">
+              <div class="ui-nav">
+                <strong>Pioneer USB Checker</strong>
+                <div class="links"><span>Features</span><span>Workflow</span><span>Install</span></div>
+              </div>
+              <div class="ui-main">
+                <article class="card">
+                  <h3>DJ USB confidence before every set.</h3>
+                  <p>FAT32 is chosen because it is universal across Pioneer decks.</p>
+                  <div class="btn-row"><button class="btn">View on GitHub</button><button class="btn secondary">Quick Start</button></div>
+                </article>
+                <article class="card">
+                  <h3>Status Model</h3>
+                  <p>PASS/WARN/FAIL checks for format and reliability.</p>
+                  <div class="chip-row"><span class="chip ok">PASS</span><span class="chip warn">WARN</span><span class="chip fail">FAIL</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="label">Use when you want strong readability with just a hint of music identity.</div>
+        </section>
+
+        <section class="mockup-wrap">
+          <div class="mockup-title">
+            <h2>2) Club Tech Soft</h2>
+            <p>EQ bars + sparse music notes + gentle ambient color glow</p>
+          </div>
+          <div class="mockup">
+            <svg class="ambient-svg" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <radialGradient id="glowA" cx="0.2" cy="0.1" r="0.45">
+                  <stop offset="0" stop-color="rgba(47,142,101,0.20)"/>
+                  <stop offset="1" stop-color="rgba(47,142,101,0)"/>
+                </radialGradient>
+                <radialGradient id="glowB" cx="0.85" cy="0.15" r="0.48">
+                  <stop offset="0" stop-color="rgba(186,69,86,0.16)"/>
+                  <stop offset="1" stop-color="rgba(186,69,86,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="1200" height="360" fill="url(#glowA)"/>
+              <rect width="1200" height="360" fill="url(#glowB)"/>
+              <path d="M10,208 C70,170 120,246 180,208 C240,170 290,246 350,208 C410,170 460,246 520,208 C580,170 630,246 690,208 C750,170 800,246 860,208 C920,170 970,246 1030,208 C1090,170 1140,246 1190,208"
+                    fill="none" stroke="rgba(74,120,85,0.22)" stroke-width="2"/>
+            </svg>
+            <div class="ambient-top">
+              <div class="eq-bars"><span></span><span></span><span></span><span></span><span></span></div>
+              <span class="ambient-note note-1">♪</span>
+              <span class="ambient-note note-2">♫</span>
+              <span class="ambient-note note-3">♪</span>
+            </div>
+            <div class="ui-shell">
+              <div class="ui-nav">
+                <strong>Pioneer USB Checker</strong>
+                <div class="links"><span>Features</span><span>Workflow</span><span>Install</span></div>
+              </div>
+              <div class="ui-main">
+                <article class="card">
+                  <h3>Automated checks with immersive visuals.</h3>
+                  <p>Balanced mood with subtle movement cues and minimal distraction.</p>
+                  <div class="btn-row"><button class="btn">View on GitHub</button><button class="btn secondary">Quick Start</button></div>
+                </article>
+                <article class="card">
+                  <h3>Color-coded confidence</h3>
+                  <p>Status tones remain clear over soft ambient effects.</p>
+                  <div class="chip-row"><span class="chip ok">PASS</span><span class="chip warn">WARN</span><span class="chip fail">FAIL</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="label">Use when you want a slightly more energetic, immersive style.</div>
+        </section>
+
+        <section class="mockup-wrap">
+          <div class="mockup-title">
+            <h2>3) Premium Vinyl</h2>
+            <p>Concentric vinyl rings + tonearm line + elegant waveform divider</p>
+          </div>
+          <div class="mockup">
+            <svg class="ambient-svg" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true">
+              <circle cx="960" cy="130" r="116" fill="none" stroke="rgba(74,120,85,0.14)" stroke-width="2"/>
+              <circle cx="960" cy="130" r="86" fill="none" stroke="rgba(74,120,85,0.12)" stroke-width="2"/>
+              <circle cx="960" cy="130" r="56" fill="none" stroke="rgba(74,120,85,0.10)" stroke-width="2"/>
+              <circle cx="960" cy="130" r="8" fill="rgba(74,120,85,0.18)"/>
+              <line x1="1035" y1="40" x2="1120" y2="18" stroke="rgba(74,120,85,0.22)" stroke-width="3"/>
+              <path d="M15,228 C95,194 152,258 232,228 C312,194 369,258 449,228 C529,194 586,258 666,228 C746,194 803,258 883,228 C963,194 1020,258 1100,228 C1135,214 1165,232 1190,228"
+                    fill="none" stroke="rgba(74,120,85,0.20)" stroke-width="2"/>
+            </svg>
+            <div class="ui-shell">
+              <div class="ui-nav">
+                <strong>Pioneer USB Checker</strong>
+                <div class="links"><span>Features</span><span>Workflow</span><span>Install</span></div>
+              </div>
+              <div class="ui-main">
+                <article class="card">
+                  <h3>Premium deck-inspired background language.</h3>
+                  <p>A distinct DJ identity without overpowering content sections.</p>
+                  <div class="btn-row"><button class="btn">View on GitHub</button><button class="btn secondary">Quick Start</button></div>
+                </article>
+                <article class="card">
+                  <h3>Compatibility first</h3>
+                  <p>Visual polish, while preserving practical utility and readability.</p>
+                  <div class="chip-row"><span class="chip ok">PASS</span><span class="chip warn">WARN</span><span class="chip fail">FAIL</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="label">Use when you want strong branding with a refined “deck hardware” feel.</div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
