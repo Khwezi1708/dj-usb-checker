@@ -35,7 +35,7 @@ It includes:
 Clone and install locally:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/khwezi1708/usb-checker.git
 cd usb-checker
 python3 -m venv .venv
 source .venv/bin/activate
